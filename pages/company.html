@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <input type="text" name="urlSubmit" id="urlSubmit" placeholder="Enter your url" required>
+    <button id="submit" onclick="urlSubmit()">GET INFORMATION</button>
+
+    <div id="text"></div>
+    <div id="name"></div>
+    <div id="companyName"></div>
+    <div id="linkedin_url"></div>
+
+    <script>
+
+        function urlSubmit() {
+            function httpGetAsync(url, callback) {
+                var xmlHttp = new XMLHttpRequest();
+                xmlHttp.onreadystatechange = function () {
+                    if (xmlHttp.readyState === 4 && xmlHttp.status === 200)
+                        callback(xmlHttp.responseText);
+                    var data =xmlHttp.responseText;
+                    var data_JSON = JSON.parse(data);
+                    document.getElementById("text").innerHTML = data;
+                    document.getElementById("name").innerHTML = data_JSON.name;
+                    document.getElementById("companyName").innerHTML = data_JSON.year_founded;
+                    document.getElementById("linkedin_url").innerHTML = data_JSON.linkedin_url;
+                    console.log(typeof (data));
+
+                }
+                xmlHttp.open("GET", url, true); // true for asynchronous
+                xmlHttp.send(null);
+            }
+
+
+            var url_data = document.getElementById('urlSubmit').value;
+            console.log(url_data);
+
+
+            var url = `https://companyenrichment.abstractapi.com/v1/?api_key=a0516cd38a09495fa918159ab33ecbc3&domain=${url_data}`
+
+            httpGetAsync(url)
+        }
+    </script>
+</body>
+
+</html>

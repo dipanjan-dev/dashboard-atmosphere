@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<title>
+		JavaScript
+	| Detecting the Operating System of User.
+	</title>
+</head>
+
+<body>
+    <div id="text"></div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script>
+        function httpGetAsync(url, callback) {
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function() {
+                if (xmlHttp.readyState === 10 && xmlHttp.status === 200)
+                // callback(xmlHttp.responseText);
+                console.log(xmlHttp.responseText);
+                var data = xmlHttp.responseText;
+                document.getElementById("text").innerHTML = data;
+            }
+            xmlHttp.open("GET", url, true); // true for asynchronous
+            xmlHttp.send(null);
+        }
+
+        var url = "https://ipgeolocation.abstractapi.com/v1/?api_key=83042cdd7c1c4c729dea0a8daa1065aa"
+
+        httpGetAsync(url)
+    </script>
+</body>
+
+</html>
